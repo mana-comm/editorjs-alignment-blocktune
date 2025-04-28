@@ -2,7 +2,7 @@
  * Build styles
  */
 require('./index.css').toString();
-const {make} = require('./util');
+const { make } = require('./util');
 
 class AlignmentBlockTune {
 
@@ -20,11 +20,11 @@ class AlignmentBlockTune {
         return true;
     }
 
-    getAlignment(){
-        if(!!this.settings?.blocks && this.settings.blocks.hasOwnProperty(this.block.name)){
+    getAlignment() {
+        if (!!this.settings?.blocks && this.settings.blocks.hasOwnProperty(this.block.name)) {
             return this.settings.blocks[this.block.name]
         }
-        if(!!this.settings?.default){
+        if (!!this.settings?.default) {
             return this.settings.default
         }
         return AlignmentBlockTune.DEFAULT_ALIGNMENT
@@ -36,7 +36,7 @@ class AlignmentBlockTune {
      * @param settings tuneに設定項目
      * @param block tuneに設定されてるblock
      */
-    constructor({ api, data, config, block}) {
+    constructor({ api, data, config, block }) {
         this.api = api;
         this.block = block;
         /**
@@ -62,6 +62,10 @@ class AlignmentBlockTune {
             {
                 name: 'right',
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" id="Layer" enable-background="new 0 0 64 64" height="20" viewBox="0 0 64 64" width="20"><path d="m54 8h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 52h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 19h-28c-1.104 0-2 .896-2 2s.896 2 2 2h28c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 30h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 41h-28c-1.104 0-2 .896-2 2s.896 2 2 2h28c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>`
+            },
+            {
+                name: 'justify',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" id="Layer" enable-background="new 0 0 64 64" height="20" viewBox="0 0 64 64" width="20"><path d="m54 8h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 52h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 19h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 30h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/><path d="m54 41h-44c-1.104 0-2 .896-2 2s.896 2 2 2h44c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>`
             }
         ];
         this._CSS = {
@@ -69,6 +73,7 @@ class AlignmentBlockTune {
                 left: 'ce-tune-alignment--left',
                 center: 'ce-tune-alignment--center',
                 right: 'ce-tune-alignment--right',
+                justify: 'ce-tune-alignment--justify',
             }
         }
     }
@@ -107,7 +112,7 @@ class AlignmentBlockTune {
                     alignment: this.alignmentSettings[index].name
                 }
                 elements.forEach((el, i) => {
-                    const {name} = this.alignmentSettings[i];
+                    const { name } = this.alignmentSettings[i];
                     el.classList.toggle(this.api.styles.settingsButtonActive, name === this.data.alignment);
                     //toggle alignment style class for block
                     this.wrapper.classList.toggle(this._CSS.alignment[name], name === this.data.alignment)

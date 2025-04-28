@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editor.js con funzionalità justify</title>
+  <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+  <link href="assets/demo.css" rel="stylesheet">
+  <script src="assets/json-preview.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <style>
+    /* Stili personalizzati per visualizzare meglio i test di allineamento */
+    .alignment-test-block {
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+    }
+    .alignment-options {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .alignment-options button {
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+    .alignment-options button.active {
+      background-color: #0078d7;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="ce-example">
+    <div class="ce-example__header">
+      <a class="ce-example__header-logo" href="https://codex.so/editor">Editor.js con Justify</a>
+
+      <div class="ce-example__header-menu">
+        <a href="https://github.com/editor-js" target="_blank">Plugins</a>
+        <a href="https://editorjs.io/usage" target="_blank">Usage</a>
+        <a href="https://editorjs.io/configuration" target="_blank">Configuration</a>
+        <a href="https://editorjs.io/creating-a-block-tool" target="_blank">API</a>
+      </div>
+    </div>
+    
+    <div class="ce-example__content _ce-example__content--small">
+      <h2>Test dell'opzione justify</h2>
+      <div id="editorjs"></div>
+      
+      <div class="ce-example__button" id="saveButton">
+        editor.save()
+      </div>
+    </div>
+    
+    <div class="ce-example__output">
+      <pre class="ce-example__output-content" id="output"></pre>
+
+      <div class="ce-example__output-footer">
+        <a href="https://codex.so" style="font-weight: bold;">Made by CodeX</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Editor.js core -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  
+  <!-- Load Tools -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+  
+  <!-- Load your AlignmentBlockTune -->
+  <script src="../dist/bundle.js"></script>
+
+  <!-- Initialization -->
+  <script>
+    const saveButton = document.getElementById('saveButton');
+    
+    // Inizializzazione dell'editor
+    const editor = new EditorJS({
+      holder: 'editorjs',
+      tools: {
+        paragraph: {
+          class: Paragraph,
+          inlineToolbar: true,
+          tunes: ['alignment']
+        },
+        header: {
+          class: Header,
+          inlineToolbar: true,
+          tunes: ['alignment']
+        }
+      },
+      tunes: ['alignment'],
+      alignment: {
+        class: AlignmentBlockTune,
+        config: {
+          default: "left",
+          blocks: {
+            header: 'center'
+          }
+        }
+      },
+      data: {
+        blocks: [
+          {
+            type: "header",
+            data: {
+              text: "Test di allineamento con Editor.js",
+              level: 2
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "Questo è un paragrafo con allineamento a sinistra (default)",
+              alignment: "left"
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "Questo è un paragrafo con allineamento al centro",
+              alignment: "center"
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "Questo è un paragrafo con allineamento a destra",
+              alignment: "right"
+            }
+          },
+          {
+            type: "paragraph",
+            data: {
+              text: "Questo è un paragrafo con testo giustificato. Dovrebbe avere il testo allineato sia a sinistra che a destra, creando un blocco di testo uniforme. Per vedere l'effetto chiaramente, questo paragrafo deve essere sufficientemente lungo da occupare più di una riga. L'allineamento giustificato è particolarmente utile per testi lunghi in cui si desidera avere un aspetto pulito e ordinato con margini uniformi.",
+              alignment: "justify"
+            }
+          }
+        ]
+      },
+      onReady: function(){
+        saveButton.click();
+      },
+      onChange: function() {
+        console.log('Contenuto modificato');
+      }
+    });
+
+    // Funzione per salvare il contenuto
+    saveButton.addEventListener('click', function () {
+      editor.save().then((savedData) => {
+        cPreview.show(savedData, document.getElementById("output"));
+      });
+    });
+  </script>
+</body>
+</html>

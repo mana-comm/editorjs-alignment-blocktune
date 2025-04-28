@@ -1,13 +1,15 @@
 ![](https://badgen.net/badge/Editor.js/v2.22.3/blue)
 
 # Text Alignment tune tool for Editor.js
-You can add text alignment to any block.
+
+You can add text alignment to any block (left, center, right, and justify).
 
 ![image](https://user-images.githubusercontent.com/2194021/113727385-0c913780-9730-11eb-836e-c536b6c19f23.gif)
 
 If you can help, please push the Star button :)
 
 ### required
+
 - editor.js v2.22.3 ↑
 
 ## Installation
@@ -20,10 +22,16 @@ Get the package
 npm i --save editorjs-text-alignment-blocktune
 ```
 
+### Install from GitHub (with justify support)
+
+```shell
+npm i --save github:tuoUsername/editorjs-text-alignment-blocktune
+```
+
 Include module at your application
 
 ```javascript
-const AlignmentTuneTool = require('editorjs-text-alignment-blocktune');
+const AlignmentTuneTool = require("editorjs-text-alignment-blocktune");
 ```
 
 ### Download to your project's source dir
@@ -36,7 +44,9 @@ const AlignmentTuneTool = require('editorjs-text-alignment-blocktune');
 `https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@latest`
 
 ## usage
+
 and look [editor.js document](https://editorjs.io/configuration#block-tunes-connection)
+
 ```
 tool:{
     list: {
@@ -67,8 +77,11 @@ tool:{
 
 ## Config Params
 
+| Field   | Type     | Description                                                       |
+| ------- | -------- | ----------------------------------------------------------------- |
+| default | `string` | "left"/"center"/"right"/"justify", If not set, it will be "left". |
+| blocks  | `object` | Default alignment can be set for each block                       |
 
-| Field | Type     | Description        |
-| ----- | -------- | ------------------ |
-| default | `string` | "left"/"center"/"right", If not set, it will be "left".|
-| blocks | `object` | Default alignment can be set for each block |
+## New Features (Fork version)
+
+This fork version adds support for justify alignment. You can now use "justify" as a value for the default alignment or in the blocks configuration.
